@@ -66,64 +66,95 @@ const dojoswap = () => {
         <a>
           <div className=" font-bold text-4xl p-3 ">Astroport</div>
         </a>
-
-        <a href="https://twitter.com/astroport_fi">
-          <Image
-            src={"/twitter.png"}
-            alt=""
-            height={25}
-            width={25}
-            className=" pt-5"
-          />
-        </a>
       </div>
 
       <div className="flex flex-col gap-5">
-        <div className="flex gap-8 mt-10  bg-gray-900 rounded-xl">
+        <div className="flex gap-8 mt-10 justify-between bg-gray-900 rounded-xl">
           <div className="px-3">
-            <div className="flex gap-4 pt-8 ">
-              <div className="text-2xl ">Total Value Locked:</div>
-              <div className=" text-xl pt-1">{tvl}</div>
+            <div className="flex gap-2 pt-8 flex-col">
+              <div className="text-xl ">Total Value Locked:</div>
+              <div className=" text-3xl pt-1">{tvl}</div>
             </div>
-            <div className="flex gap-4 pt-2">
-              <div className="text-2xl ">1 Hour Change:</div>
+            <div className="flex gap-4 pt-5 justify-between">
+              <div className="text-sm ">1 Hour Change:</div>
               <div
-                className={`text-xl pt-1 ${
+                className={`text-sm pt-1 ${
                   oneh! < 0 ? "text-red-500" : "text-green-500"
                 }`}
               >
                 {oneh}%
               </div>
             </div>
-            <div className="flex gap-4 pt-2">
-              <div className="text-2xl ">24 Hour Change:</div>
+            <div className="flex gap-4 pt-2 justify-between">
+              <div className="text-sm ">24 Hour Change:</div>
               <div
-                className={`text-xl pt-1 ${
+                className={`text-sm pt-1 ${
                   oned! < 0 ? "text-red-500" : "text-green-500"
                 }`}
               >
                 {oned}%
               </div>
             </div>
-            <div className="flex gap-4 pt-2">
-              <div className="text-2xl ">7 Day Change:</div>
+            <div className="flex gap-4 pt-2 justify-between">
+              <div className="text-sm ">7 Day Change:</div>
               <div
-                className={`text-xl pt-1 ${
+                className={`text-sm pt-1 ${
                   sevd! < 0 ? "text-red-500" : "text-green-500"
                 }`}
               >
                 {sevd}%
               </div>
             </div>
+            <div className=" flex flex-col pt-10">
+              <div className="text-base">Socials</div>
+              <div className=" flex flex-row gap-5 items-center">
+                <a href="https://twitter.com/astroport_fi">
+                  <Image
+                    src={"/twitter.png"}
+                    alt=""
+                    height={20}
+                    width={20}
+                    className=" pt-5"
+                  />
+                </a>
+                <a href="https://t.me/astroport_fi">
+                  <Image
+                    src={"/telegram.png"}
+                    alt=""
+                    height={30}
+                    width={30}
+                    className=" pt-5"
+                  />
+                </a>
+                <a href="https://astroport.medium.com/">
+                  <Image
+                    src={"/medium.png"}
+                    alt=""
+                    height={30}
+                    width={30}
+                    className=" pt-5"
+                  />
+                </a>
+                <a href="https://docs.astroport.fi/">
+                  <Image
+                    src={"/docs.png"}
+                    alt=""
+                    height={25}
+                    width={25}
+                    className=" pt-5"
+                  />
+                </a>
+              </div>
+            </div>
           </div>
           <div className=" flex flex-col ">
-            <div className="px-2 py-4 pt-5 text-right ">
+            <div className="px-5 pr-16 pt-5   ">
               Astroport Total Value Locked in Injective Chain
             </div>
             <AstroChart />
           </div>
         </div>
-        <div className=" px-3">Description</div>
+        <div className=" px-3 text-xl">Description</div>
 
         <div className="  p-5 text-xl bg-gray-900 rounded-xl">
           Astroport is the central space station of the DeFi solar system, where
