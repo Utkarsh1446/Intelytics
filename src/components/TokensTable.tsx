@@ -64,46 +64,6 @@ export function TokensTable() {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  // const data: Coin[] = [
-  //   {
-  //     name: "Dojo Swap",
-  //     category: "Dex",
-  //     tvl: 23.4,
-  //     "1 Hour Change": 23.4,
-  //     "24 Hours Change": 66.4,
-  //     "7 Days Change": 29.1,
-  //     volume: 25.2,
-  //   },
-  //   {
-  //     name: "Astroport",
-  //     category: "Dex",
-  //     tvl: 21.4,
-  //     "1 Hour Change": 23.4,
-  //     "24 Hours Change": 77.4,
-  //     "7 Days Change": 30.1,
-  //     volume: 22.1,
-  //   },
-  //   {
-  //     name: "Helix",
-  //     category: "Deriviative",
-  //     tvl: 21.4,
-  //     "1 Hour Change": 23.4,
-  //     "24 Hours Change": 77.4,
-  //     "7 Days Change": 30.1,
-  //     volume: 22.1,
-  //   },
-  //   {
-  //     name: "Hydro",
-  //     category: "Liquid Stacking",
-  //     tvl: 21.4,
-  //     "1 Hour Change": 23.4,
-  //     "24 Hours Change": 77.4,
-  //     "7 Days Change": 30.1,
-  //     volume: 22.1,
-  //   },
-  //   // ...
-  // ];
-
   const columns: ColumnDef<Token>[] = [
     {
       accessorKey: "name",
@@ -127,7 +87,7 @@ export function TokensTable() {
       accessorKey: "category",
       header: "Category",
       cell: ({ row }) => (
-        <div className="capitalize text-teal-300">
+        <div className="capitalize text-teal-300 text-right lg:text-justify">
           {row.getValue("category")}
         </div>
       ),
@@ -314,8 +274,7 @@ export function TokensTable() {
         );
         const liquidityData2 = apiUrl2.data;
         const ninjaLiq = liquidityData2.pairs[0].liquidity.usd;
-        const ninjaPrice =
-          response1.data.coins["coingecko:dog-wif-nuchucks"].price;
+        const ninjaPrice = liquidityData2.pairs[0].priceUsd;
 
         // alien
         const response2 = await axios.get(
@@ -337,8 +296,7 @@ export function TokensTable() {
         );
         const liquidityData4 = apiUrl4.data;
         const kiraLiq = liquidityData4.pairs[0].liquidity.usd;
-        const kiraPrice =
-          response3.data.coins["coingecko:kira-the-injective-cat"].price;
+        const kiraPrice = liquidityData4.pairs[0].priceUsd;
 
         // dojo
         const response4 = await axios.get(
@@ -371,8 +329,7 @@ export function TokensTable() {
         );
         const liquidityData5 = apiUrl5.data;
         const sushiLiq = liquidityData5.pairs[0].liquidity.usd;
-        const sushiPrice =
-          response6.data.coins["coingecko:stride-staked-injective"].price;
+        const sushiPrice = liquidityData5.pairs[0].priceUsd;
 
         // zignaly
         const response7 = await axios.get(
@@ -383,7 +340,7 @@ export function TokensTable() {
         );
         const liquidityData6 = apiUrl6.data;
         const kageLiq = liquidityData6.pairs[0].liquidity.usd;
-        const kagePrice = response7.data.coins["coingecko:zignaly"].price;
+        const kagePrice = liquidityData6.pairs[0].priceUsd;
 
         // white-whale dinj mib
         const response8 = await axios.get(
@@ -396,21 +353,6 @@ export function TokensTable() {
         const mibLiq = liquidityData7.pairs[0].liquidity.usd;
         // console.log(liquidityData7.pairs[0].priceUsd)
         const mibPrice = liquidityData7.pairs[0].priceUsd;
-
-        // const ninjaLiq = 1;
-        // const sushiPrice = 2;
-        // const sushiLiq = 1;
-        // const alienLiq = 1;
-
-        // const kiraLiq = 5;
-
-        // const dojoLiq = 1;
-        // const mibPrice = 2;
-        // const mibLiq = 7;
-        // const kagePrice = 4;
-        // const kageLiq = 1;
-        // const rollPrice = 2;
-        // const rollLiq = 2;
 
         const data: Token[] = [
           {
@@ -448,20 +390,20 @@ export function TokensTable() {
             category: "Utility",
             Price: sushiPrice,
             Liquidity: sushiLiq,
-            "Market Cap": 15000 * sushiPrice,
-            "Circulating Supply": 15000,
-            "Total Supply": 15000,
-            FDV: 15000 * sushiPrice,
+            "Market Cap": 24552.75 * sushiPrice,
+            "Circulating Supply": 24552.75,
+            "Total Supply": "-",
+            FDV: "-",
           },
           {
             name: "Dojo",
             category: "Utility ",
             Price: dojoPrice,
             Liquidity: dojoLiq,
-            "Market Cap": 20000000 * dojoPrice,
-            "Circulating Supply": 20000000,
-            "Total Supply": 800000000,
-            FDV: 800000000 * dojoPrice,
+            "Market Cap": 200000000 * dojoPrice,
+            "Circulating Supply": 200000000,
+            "Total Supply": 80000000,
+            FDV: 80000000 * dojoPrice,
           },
           {
             name: "Dinj",
@@ -533,17 +475,17 @@ export function TokensTable() {
   return (
     <div className="w-full pb-8">
       <div className="flex items-center py-4">
-        <div className="bg-black p-3 px-5 rounded-xl flex gap-4 w-full justify-between">
+        <div className="bg-black lg:p-3  px-5 rounded-xl flex gap-4 w-full justify-between">
           <div className="flex items-center gap-4">
             {/* <Image src="./protocolranking.svg" alt="" height={30} width={30} /> */}
             <div className=" font-semibold ">Tokens </div>
           </div>
 
-          <div className=" flex gap-4">
+          <div className=" flex gap-4 p-2">
             {/* column dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="default" className="ml-auto ">
+                <Button variant="default" className="ml-auto">
                   Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
