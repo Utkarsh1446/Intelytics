@@ -77,9 +77,10 @@ export function TokensTable() {
             height={30}
             className=" rounded-2xl"
           />
-          {/* <Link href={`/${row.getValue("name")}`}> */}{" "}
-          <div className="capitalize text-white">{row.getValue("name")}</div>
-          {/* </Link> */}
+          <Link href={`/Tokens/${row.getValue("name")}`}>
+            {" "}
+            <div className="capitalize text-white">{row.getValue("name")}</div>
+          </Link>
         </div>
       ),
     },
@@ -173,6 +174,9 @@ export function TokensTable() {
           maximumFractionDigits: 2,
         }).format(amount);
 
+        if (row.getValue("Market Cap") == "-")
+          return <div className=" text-center font-medium">-</div>;
+
         return <div className=" text-center font-medium">{formatted}</div>;
       },
     },
@@ -197,6 +201,9 @@ export function TokensTable() {
         const formatted = new Intl.NumberFormat("en-US", {
           currency: "USD",
         }).format(amount);
+
+        if (row.getValue("Circulating Supply") == "-")
+          return <div className=" text-center font-medium">-</div>;
 
         return <div className=" text-center font-medium">{formatted}</div>;
       },
@@ -267,101 +274,113 @@ export function TokensTable() {
       try {
         // ninja
         const response1 = await axios.get(
-          "https://coins.llama.fi/prices/current/injective:factory%2Finj1xtel2knkt8hmc9dnzpjz6kdmacgcfmlv5f308w%2Fninja,coingecko:dog-wif-nuchucks?searchWidth=4h"
+          "http://50.117.104.207:3000/api/getTokenData?tokenName=NINJA"
         );
         const apiUrl2 = await axios.get(
           "https://api.dexscreener.com/latest/dex/tokens/factory-inj1xtel2knkt8hmc9dnzpjz6kdmacgcfmlv5f308w-ninja"
         );
-        const liquidityData2 = apiUrl2.data;
-        const ninjaLiq = liquidityData2.pairs[0].liquidity.usd;
-        const ninjaPrice = liquidityData2.pairs[0].priceUsd;
+        const ninjaLiq = response1.data.liquidity[response1.data.liquidity.length-1]; 
+        const ninjaPrice = response1.data.price[response1.data.price.length-1];
 
         // alien
         const response2 = await axios.get(
-          "https://coins.llama.fi/prices/current/coingecko:alien?searchWidth=4h"
+          "http://50.117.104.207:3000/api/getTokenData?tokenName=$ALIEN"
         );
         const apiUrl3 = await axios.get(
           "https://api.dexscreener.com/latest/dex/tokens/factory-inj1mly2ykhf6f9tdj58pvndjf4q8dzdl4myjqm9t6-ALIEN"
         );
         const liquidityData3 = apiUrl3.data;
-        const alienLiq = liquidityData3.pairs[0].liquidity.usd;
-        const alienPrice = liquidityData3.pairs[0].priceUsd;
+        const alienLiq = response2.data.liquidity[response2.data.liquidity.length-1]; 
+        const alienPrice = response2.data.price[response2.data.price.length-1];
 
         // kira
         const response3 = await axios.get(
-          "https://coins.llama.fi/prices/current/injective:factory%2Finj1xy3kvlr4q4wdd6lrelsrw2fk2ged0any44hhwq%2FKIRA,coingecko:kira-the-injective-cat?searchWidth=4h"
+          "http://50.117.104.207:3000/api/getTokenData?tokenName=KIRA"
         );
-        const apiUrl4 = await axios.get(
-          "https://api.dexscreener.com/latest/dex/tokens/factory-inj1xy3kvlr4q4wdd6lrelsrw2fk2ged0any44hhwq-KIRA"
-        );
-        const liquidityData4 = apiUrl4.data;
-        const kiraLiq = liquidityData4.pairs[0].liquidity.usd;
-        const kiraPrice = liquidityData4.pairs[0].priceUsd;
+       
+        const kiraLiq = response3.data.liquidity[response3.data.liquidity.length-1]; 
+        const kiraPrice = response3.data.price[response3.data.price.length-1];
 
         // dojo
         const response4 = await axios.get(
-          "https://coins.llama.fi/prices/current/coingecko:dojo-token?searchWidth=4h"
+          "http://50.117.104.207:3000/api/getTokenData?tokenName=DOJO"
         );
-        const apiUrl = await axios.get(
-          "https://api.dexscreener.com/latest/dex/tokens/inj1zdj9kqnknztl2xclm5ssv25yre09f8908d4923"
-        );
-        const liquidityData = apiUrl.data;
-        const dojoLiq = liquidityData.pairs[0].liquidity.usd;
-        const dojoPrice = liquidityData.pairs[0].priceUsd;
-
-        // katana
+         
+        const dojoLiq = response4.data.liquidity[response4.data.liquidity.length-1]; 
+        const dojoPrice = response4.data.price[response4.data.price.length-1];4
+        
+        // roll
         const response5 = await axios.get(
-          "https://coins.llama.fi/prices/current/coingecko:dogwifkatana?searchWidth=4h"
+          "http://50.117.104.207:3000/api/getTokenData?tokenName=ROLL"
         );
-        const apiUrl8 = await axios.get(
-          "https://api.dexscreener.com/latest/dex/tokens/inj1qv98cmfdaj5f382a0klq7ps4mnjp6calzh20h3"
-        );
-        const liquidityData8 = apiUrl8.data;
-        const rollLiq = liquidityData8.pairs[0].liquidity.usd;
-        const rollPrice = liquidityData8.pairs[0].priceUsd;
+         
+        const rollLiq = response5.data.liquidity[response5.data.liquidity.length-1]; 
+        const rollPrice = response5.data.price[response5.data.price.length-1];
 
         // stinj
         const response6 = await axios.get(
-          "https://coins.llama.fi/prices/current/coingecko:stride-staked-injective?searchWidth=4h"
-        );
-        const apiUrl5 = await axios.get(
-          "https://api.dexscreener.com/latest/dex/tokens/ibc-AC87717EA002B0123B10A05063E69BCA274BA2C44D842AEEB41558D2856DCE93"
-        );
-        const liquidityData5 = apiUrl5.data;
-        const sushiLiq = liquidityData5.pairs[0].liquidity.usd;
-        const sushiPrice = liquidityData5.pairs[0].priceUsd;
+          "http://50.117.104.207:3000/api/getTokenData?tokenName=stINJ"
+        ); 
+        const sushiLiq = response6.data.liquidity[response6.data.liquidity.length-1]; 
+        const sushiPrice = response6.data.price[response6.data.price.length-1];
 
         // zignaly
         const response7 = await axios.get(
-          "https://coins.llama.fi/prices/current/coingecko:zignaly?searchWidth=4h"
-        );
-        const apiUrl6 = await axios.get(
-          "https://api.dexscreener.com/latest/dex/tokens/peggy0xb2617246d0c6c0087f18703d576831899ca94f01"
-        );
-        const liquidityData6 = apiUrl6.data;
-        const kageLiq = liquidityData6.pairs[0].liquidity.usd;
-        const kagePrice = liquidityData6.pairs[0].priceUsd;
+          "http://50.117.104.207:3000/api/getTokenData?tokenName=ZIG"
+        ); 
+        const kageLiq = response7.data.liquidity[response7.data.liquidity.length-1]; 
+        const kagePrice = response7.data.price[response7.data.price.length-1];
 
         // babyDojo
 
         const apiUrl9 = await axios.get(
-          "https://api.dexscreener.com/latest/dex/tokens/inj19dtllzcquads0hu3ykda9m58llupksqwekkfnw"
+          "http://50.117.104.207:3000/api/getTokenData?tokenName=babyDOJO"
         );
         const liquidityData9 = apiUrl9.data;
-        const babyLiq = liquidityData9.pairs[0].liquidity.usd;
-        const babyPrice = liquidityData9.pairs[0].priceUsd;
+        const babyLiq = liquidityData9.liquidity[apiUrl9.data.liquidity.length-1];
+        const babyPrice = liquidityData9.price[apiUrl9.data.price.length-1];
 
         // white-whale dinj mib
         const response8 = await axios.get(
-          "https://coins.llama.fi/prices/current/coingecko:white-whale?searchWidth=4h"
+          "http://50.117.104.207:3000/api/getTokenData?tokenName=dINJ"
         );
-        const apiUrl7 = await axios.get(
-          "https://api.dexscreener.com/latest/dex/tokens/inj134wfjutywny9qnyux2xgdmm0hfj7mwpl39r3r9"
-        );
-        const liquidityData7 = apiUrl7.data;
-        const mibLiq = liquidityData7.pairs[0].liquidity.usd;
-        // console.log(liquidityData7.pairs[0].priceUsd)
-        const mibPrice = liquidityData7.pairs[0].priceUsd;
+        const mibLiq = response8.data.liquidity[response8.data.liquidity.length-1]; 
+        const mibPrice = response8.data.price[response8.data.price.length-1];
+
+
+        const response10 = await axios.get("http://50.117.104.207:3000/api/getCurrentPrice?tokenName=XNJ")
+        const response11 = await axios.get("http://50.117.104.207:3000/api/getTokenData?tokenName=XNJ")
+        const response20 = await axios.get("http://50.117.104.207:3000/api/getCurrentPrice?tokenName=NONJA")
+        const response201 = await axios.get("http://50.117.104.207:3000/api/getTokenData?tokenName=NONJA")
+        const response21 = await axios.get("http://50.117.104.207:3000/api/getCurrentPrice?tokenName=PING")
+        const response211 = await axios.get("http://50.117.104.207:3000/api/getTokenData?tokenName=PING")
+        const response22 = await axios.get("http://50.117.104.207:3000/api/getCurrentPrice?tokenName=YKZ")
+        const response221 = await axios.get("http://50.117.104.207:3000/api/getTokenData?tokenName=YKZ")
+        const response23 = await axios.get("http://50.117.104.207:3000/api/getCurrentPrice?tokenName=hINJ")
+        const response231 = await axios.get("http://50.117.104.207:3000/api/getTokenData?tokenName=hINJ")
+        const response24 = await axios.get("http://50.117.104.207:3000/api/getCurrentPrice?tokenName=DIB")
+        const response241 = await axios.get("http://50.117.104.207:3000/api/getTokenData?tokenName=DIB")
+        const response25 = await axios.get("http://50.117.104.207:3000/api/getCurrentPrice?tokenName=DUEL")
+        const response251 = await axios.get("http://50.117.104.207:3000/api/getTokenData?tokenName=DUEL")
+        const response26 = await axios.get("http://50.117.104.207:3000/api/getCurrentPrice?tokenName=MONKS")
+        const response261 = await axios.get("http://50.117.104.207:3000/api/getTokenData?tokenName=MONKS")
+
+        const nonjaPrice = response20.data.price;
+        const nonjaLiq = response201.data.liquidity[response211.data.liquidity.length-1]
+        const pingPrice = response21.data.price;
+        const pingLiq = response211.data.liquidity[response211.data.liquidity.length-1];
+        const ykzPrice = response22.data.price;
+        const ykzLiq = response221.data.liquidity[response211.data.liquidity.length-1];
+        const hingPrice = response23.data.price;
+        const hingLiq = response231.data.liquidity[response211.data.liquidity.length-1];
+        const dibPrice = response24.data.price;
+        const dibLiq = response241.data.liquidity[response211.data.liquidity.length-1];
+        const duelPrice = response25.data.price;
+        const duelLiq = response251.data.liquidity[response211.data.liquidity.length-1];
+        const monksPrice = response26.data.price;
+        const monksLiq = response261.data.liquidity[response211.data.liquidity.length-1];
+        const xnjPrice = response10.data.price
+        const xnjLiq = response11.data.liquidity[response211.data.liquidity.length-1];
 
         const data: Token[] = [
           {
@@ -454,6 +473,106 @@ export function TokensTable() {
             "Total Supply": 4198646072.1,
             FDV: 4198646072.1 * babyPrice,
           },
+          {
+            name: "XNJ",
+            category: "Gaming",
+            "Total Supply": "-",
+            "Circulating Supply": "-",
+            Price: xnjPrice,
+            "Market Cap": "-",
+            Liquidity: xnjLiq,
+            FDV: "-",
+          },
+          {
+            name: "Sushi",
+            category: "CW404",
+            "Total Supply": 15000,
+            "Circulating Supply": 15000,
+            Price: sushiPrice,
+            "Market Cap": 15000 * sushiPrice,
+            Liquidity: sushiLiq,
+            FDV: 15000 * sushiPrice,
+          },
+          {
+            name: "Nonja",
+            category: "Meme",
+            "Total Supply": 1000000000,
+            "Circulating Supply": 1000000000,
+            Price: nonjaPrice,
+            "Market Cap": 1000000000 * nonjaPrice,
+            Liquidity: nonjaLiq,
+            FDV: 1000000000 * nonjaPrice,
+          },
+          {
+            name: "Kage",
+            category: "Utility",
+            "Total Supply": 100000000,
+            "Circulating Supply": 26875564,
+            Price: kagePrice,
+            "Market Cap": 26875564 * kagePrice,
+            Liquidity: kageLiq,
+            FDV: 100000000 * kagePrice,
+          },
+          {
+            name: "Ping",
+            category: "Meme",
+            "Total Supply": 1000000000,
+            "Circulating Supply": 800000000,
+            Price: pingPrice,
+            "Market Cap": pingPrice,
+            Liquidity: pingLiq * 800000000,
+            FDV: pingPrice * 1000000000,
+          },
+          {
+            name: "Ykz",
+            category: "CW404",
+            "Total Supply": 10000,
+            "Circulating Supply": 9000,
+            Price: ykzPrice,
+            "Market Cap": ykzPrice * 9000,
+            Liquidity: ykzLiq,
+            FDV: ykzPrice * 10000,
+          },
+          {
+            name: "hINJ",
+            category: "CW20",
+            "Total Supply": 1820230.18,
+            "Circulating Supply": "-",
+            Price: hingPrice,
+            "Market Cap": "-",
+            Liquidity: hingLiq,
+            FDV: hingPrice * 1820230.18,
+          },
+          {
+            name: "Dib",
+            category: "Meme",
+            "Total Supply": 69000000000,
+            "Circulating Supply": 69000000000,
+            Price: dibPrice,
+            "Market Cap": dibPrice * 69000000000,
+            Liquidity: dibLiq,
+            FDV: dibPrice * 69000000000,
+          },
+          {
+            name: "Duel",
+            category: "Utility",
+            "Total Supply": 10000000000,
+            "Circulating Supply": 1454408582,
+            Price: duelPrice,
+            "Market Cap": duelPrice * 1454408582,
+            Liquidity: duelLiq,
+            FDV: duelPrice * 10000000000,
+          },
+          {
+            name: "Monks",
+            category: "Meme",
+            "Total Supply": 1000000000,
+            "Circulating Supply": "-",
+            Price: monksPrice,
+            "Market Cap": "-",
+            Liquidity: monksLiq,
+            FDV: monksPrice * 1000000000,
+          },
         ];
         setdata(data);
       } catch (error) {
@@ -478,7 +597,6 @@ export function TokensTable() {
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
