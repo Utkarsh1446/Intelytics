@@ -214,12 +214,12 @@ export default function tokenName() {
   const slug = String(router.query.slug).toLowerCase();
   const [price, setPrice] = useState();
   const [marketCap, setMarketCap] = useState<any>();
-  const [v24, setv24] = useState();
+  const [v24, setv24] = useState<string>();
   const [min5, setMin5] = useState<any>();
   const [hour1, setHr1] = useState();
   const [hour24, sethour24] = useState();
-  const [cs ,setCs] = useState();
-  const [ts ,setTs] = useState()
+  const [cs ,setCs] = useState<string>();
+  const [ts ,setTs] = useState<string>()
 
   const Data = () => {
     if (price) {
@@ -239,15 +239,15 @@ export default function tokenName() {
     const chartValues = async () => {
       try {
         const response = await axios.get(
-          `http://50.117.104.207:3000/api/getTokenData?tokenName=${String(
+          `https://intelytics-be.vercel.app/api/getTokenData?tokenName=${String(
             contents[slug].symbol
           )}`
         );
-        const response2 = await axios.get(`http://50.117.104.207:3000/api/getDataByInterval/${String(
+        const response2 = await axios.get(`https://intelytics-be.vercel.app/api/getDataByInterval/${String(
           contents[slug].symbol)}/5m`)
-          const response3 = await axios.get(`http://50.117.104.207:3000/api/getDataByInterval/${String(
+          const response3 = await axios.get(`https://intelytics-be.vercel.app/api/getDataByInterval/${String(
           contents[slug].symbol)}/1h`)
-          const response4 = await axios.get(`http://50.117.104.207:3000/api/getDataByInterval/${String(
+          const response4 = await axios.get(`https://intelytics-be.vercel.app/api/getDataByInterval/${String(
           contents[slug].symbol)}/24h`)
           console.log(response2.data.price[response2.data.price.length-1])
           setMin5(response2.data.price[response2.data.price.length-1])
@@ -344,7 +344,7 @@ export default function tokenName() {
     const chartValues = async () => {
       try {
         const response = await axios.get(
-          `http://50.117.104.207:3000/api/getTokenData?tokenName=${String(
+          `https://intelytics-be.vercel.app/api/getTokenData?tokenName=${String(
             contents[slug].symbol
           )}`
         );
@@ -446,14 +446,12 @@ export default function tokenName() {
     if (contents[slug]) {
       console.log("from effect", contents[slug].name);
       const formatted3 = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
+         
         maximumFractionDigits: 0,
       }).format(contents[slug].circulatingSupply);
       setCs(formatted3)
       const formatted4 = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
+      
          
         maximumFractionDigits: 0,
       }).format(contents[slug].totalSupply);
@@ -777,7 +775,7 @@ export default function tokenName() {
                   </div>
                 </div>
               </div>
-              <div className="pt-4 lg:pt-8 w-1/4">
+              <div className="pt-4 lg:pt-8 lg:w-1/4 w-full">
               <div className="flex gap-2 pt-3 items-center bg-gray-900 rounded-xl p-3">
                   <Image
                     alt=""

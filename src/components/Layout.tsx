@@ -15,7 +15,10 @@ const Layout = ({ children }: any) => {
     return (
       <>
         <div className=" lg:w-full h-screen bg-slate-950 text-white overflow-y-scroll">
-          <div className="lg:hidden bg-slate-950 w-full pt-2 p-2 pb-3 flex items-center justify-between">
+          <div className=" lg:hidden block">
+          <Sidebar visible={isVisibie} setVisible={setIsVisible} />
+          </div>
+          <div className="lg:hidden bg-slate-950 w-full px-6 pt-8 pb-1  flex items-center justify-between">
             <Link href={"/"}>
               <Image
                 className="w-[10rem] h-[1.5rem]"
